@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TruongEF_DBFirstModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Khoa">
+          <Key>
+            <PropertyRef Name="KhoaID" />
+          </Key>
+          <Property Name="KhoaID" Type="int" Nullable="false" />
+          <Property Name="TenKhoa" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="LopID" />
+          </Key>
+          <Property Name="LopID" Type="int" Nullable="false" />
+          <Property Name="TenLop" Type="nvarchar" MaxLength="100" />
+          <Property Name="KhoaID" Type="int" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="SinhVienID" />
+          </Key>
+          <Property Name="SinhVienID" Type="int" Nullable="false" />
+          <Property Name="TenSinhVien" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tuoi" Type="int" />
+          <Property Name="LopID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Lop__KhoaID__267ABA7A">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="KhoaID" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="KhoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SinhVien__LopID__29572725">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="LopID" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="LopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TruongEF_DBFirstModelStoreContainer">
+          <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Lop__KhoaID__267ABA7A" Association="Self.FK__Lop__KhoaID__267ABA7A">
+            <End Role="Khoa" EntitySet="Khoa" />
+            <End Role="Lop" EntitySet="Lop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SinhVien__LopID__29572725" Association="Self.FK__SinhVien__LopID__29572725">
+            <End Role="Lop" EntitySet="Lop" />
+            <End Role="SinhVien" EntitySet="SinhVien" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TruongEF_DBFirstModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Khoa">
+          <Key>
+            <PropertyRef Name="KhoaID" />
+          </Key>
+          <Property Name="KhoaID" Type="Int32" Nullable="false" />
+          <Property Name="TenKhoa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lop" Relationship="Self.FK__Lop__KhoaID__267ABA7A" FromRole="Khoa" ToRole="Lop" />
+        </EntityType>
+        <EntityType Name="Lop">
+          <Key>
+            <PropertyRef Name="LopID" />
+          </Key>
+          <Property Name="LopID" Type="Int32" Nullable="false" />
+          <Property Name="TenLop" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KhoaID" Type="Int32" />
+          <NavigationProperty Name="Khoa" Relationship="Self.FK__Lop__KhoaID__267ABA7A" FromRole="Lop" ToRole="Khoa" />
+          <NavigationProperty Name="SinhVien" Relationship="Self.FK__SinhVien__LopID__29572725" FromRole="Lop" ToRole="SinhVien" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="SinhVienID" />
+          </Key>
+          <Property Name="SinhVienID" Type="Int32" Nullable="false" />
+          <Property Name="TenSinhVien" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tuoi" Type="Int32" />
+          <Property Name="LopID" Type="Int32" />
+          <NavigationProperty Name="Lop" Relationship="Self.FK__SinhVien__LopID__29572725" FromRole="SinhVien" ToRole="Lop" />
+        </EntityType>
+        <Association Name="FK__Lop__KhoaID__267ABA7A">
+          <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+          <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Khoa">
+              <PropertyRef Name="KhoaID" />
+            </Principal>
+            <Dependent Role="Lop">
+              <PropertyRef Name="KhoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SinhVien__LopID__29572725">
+          <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lop">
+              <PropertyRef Name="LopID" />
+            </Principal>
+            <Dependent Role="SinhVien">
+              <PropertyRef Name="LopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TruongEF_DBFirstEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Khoa" EntityType="Self.Khoa" />
+          <EntitySet Name="Lop" EntityType="Self.Lop" />
+          <EntitySet Name="SinhVien" EntityType="Self.SinhVien" />
+          <AssociationSet Name="FK__Lop__KhoaID__267ABA7A" Association="Self.FK__Lop__KhoaID__267ABA7A">
+            <End Role="Khoa" EntitySet="Khoa" />
+            <End Role="Lop" EntitySet="Lop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SinhVien__LopID__29572725" Association="Self.FK__SinhVien__LopID__29572725">
+            <End Role="Lop" EntitySet="Lop" />
+            <End Role="SinhVien" EntitySet="SinhVien" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TruongEF_DBFirstModelStoreContainer" CdmEntityContainer="TruongEF_DBFirstEntities">
+          <EntitySetMapping Name="Khoa">
+            <EntityTypeMapping TypeName="TruongEF_DBFirstModel.Khoa">
+              <MappingFragment StoreEntitySet="Khoa">
+                <ScalarProperty Name="KhoaID" ColumnName="KhoaID" />
+                <ScalarProperty Name="TenKhoa" ColumnName="TenKhoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lop">
+            <EntityTypeMapping TypeName="TruongEF_DBFirstModel.Lop">
+              <MappingFragment StoreEntitySet="Lop">
+                <ScalarProperty Name="LopID" ColumnName="LopID" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="KhoaID" ColumnName="KhoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SinhVien">
+            <EntityTypeMapping TypeName="TruongEF_DBFirstModel.SinhVien">
+              <MappingFragment StoreEntitySet="SinhVien">
+                <ScalarProperty Name="SinhVienID" ColumnName="SinhVienID" />
+                <ScalarProperty Name="TenSinhVien" ColumnName="TenSinhVien" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="LopID" ColumnName="LopID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
